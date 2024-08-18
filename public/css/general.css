@@ -1,0 +1,78 @@
+footer {
+    background-image: radial-gradient(circle at -2.16% 19.88%, #09D1F9 0, #09F9C2 50%, #0CF974 100%);
+    color: black;
+    padding: 3rem 0;
+}
+
+.bg-nav-umb {
+    background-image: radial-gradient(circle at -2.16% 19.88%, #09D1F9 0, #09F9C2 50%, #0CF974 100%);
+}
+
+
+.social-icons a {
+    font-size: 1.25rem;
+}
+
+.margin-6 {
+    margin: 10%;
+}
+
+.gupter-regular {
+    font-family: "Gupter", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.gupter-medium {
+    font-family: "Gupter", serif;
+    font-weight: 500;
+    font-style: normal;
+}
+
+.gupter-bold {
+    font-family: "Gupter", serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.beautiful-text {
+    text-wrap: pretty;
+}
+
+.box-shadow-cards {
+    box-shadow: 60px -16px #09F9C2;
+}
+
+.text-show:hover {
+    color: tomato !important;
+}
+
+@media only screen and (max-width: 576px) {
+    .box-shadow-cards {
+        box-shadow: 30px -8px #09F9C2;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .box-shadow-cards {
+        box-shadow: 35px -10px #09F9C2;
+    }
+}
+
+@media only screen and (max-width: 992px) {
+    .box-shadow-cards {
+        box-shadow: 40px -12px #09F9C2;
+    }
+}
+
+@media only screen and (max-width: 1200px) {
+    .box-shadow-cards {
+        box-shadow: 50px -14px #09F9C2;
+    }
+}
+
+@media only screen and (max-width: 1400px) {
+    .box-shadow-cards {
+        box-shadow: 60px -18px #09F9C2;
+    }
+}

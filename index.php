@@ -1,0 +1,233 @@
+<?php
+
+require_once("./settings/connection.php");
+
+$csrfToken = bin2hex(random_bytes(32));
+$message = '';
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+    $names = $_POST['namesInput'];
+    $lastNames = $_POST['lastNamesInput'];
+    $email = $_POST['exampleInputEmail1'];
+    $phones = $_POST['phoneInput'];
+    $description = $_POST['descriptionArea'];
+
+    if (isset($names) && isset($lastNames) && isset($email) && isset($phones) && isset($description)) {
+        $store = new Connection();
+        $storeInfo = $store->store($names, $lastNames, $email, $phones, $description);
+
+        if ($storeInfo) {
+            $message = 1;
+        } else {
+            $message = 0;
+        }
+    }
+}
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="titlePage"></title>
+
+    <!-- Bootstrap Library CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+    <!-- General CSS -->
+    <link rel="stylesheet" href="/public/css/general.css">
+
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Gupter:wght@400;500;700&family=Inconsolata:wght@200..900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+
+    <nav class="navbar bg-nav-umb fixed-top">
+        <div class="container-fluid">
+            <a class="navbar-brand gupter-bold" id="titleNavBar"></a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="offcanvas offcanvas-end bg-nav-umb" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                <div class="offcanvas-header">
+                    <h5 class="offcanvas-title gupter-regular" id="offcanvasNavbarLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                </div>
+                <div class="offcanvas-body">
+                    <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                        <li class="nav-item">
+                            <a class="nav-link gupter-regular text-show active" aria-current="page" href="#" id="navBarMainTitle"></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link gupter-regular text-show" id="introduction"></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link gupter-regular text-show" id="methodologuy"></a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link gupter-regular text-show" id="theme"></a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle gupter-regular text-show" href="#" role="button" id="examples" data-bs-toggle="dropdown" aria-expanded="false"></a>
+                            <ul class="dropdown-menu bg-nav-umb">
+                                <li><a class="dropdown-item gupter-regular text-show" id="personIndex1"></a></li>
+                                <li><a class="dropdown-item gupter-regular text-show" id="personIndex2"></a></li>
+                                <li><a class="dropdown-item gupter-regular text-show" id="personIndex3"></a></li>
+                                <li><a class="dropdown-item gupter-regular text-show" id="personIndex4"></a></li>
+                                <li><a class="dropdown-item gupter-regular text-show" id="personIndex5"></a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <form class="d-flex mt-3" role="search">
+                        <input class="form-control me-2 gupter-regular" type="search" placeholder="Search" aria-label="Search">
+                        <button class="btn btn-outline-primary gupter-regular" type="submit" id="search"></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <h1 class="margin-6 gupter-regular text-center" id="titleMainPage"></h1>
+
+        <!-- <?php if (isset($message)) { ?>
+            <div class="container bg-nav-umb">
+                <div class="row">
+                    <div class="col">
+                        <small><?= date('Y-m-d H:i:s'); ?></small>
+                    </div>
+                </div>
+                <div class="text-center" style="margin-bottom: 5%;">
+                    <?php if ($message == 1) { ?>
+                        <span>Se envio de manera exitosa tu información de contacto, lo mas pronto se comunicaran contigo.</span>
+                    <?php } else { ?>
+                        <span>Hubo problemas no se envio tu información de contacto, intentalo más tarde.</span>
+                    <?php } ?>
+                </div>
+            </div>
+        <?php  } ?> -->
+
+        <div class="row">
+            <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-5">
+                <div class="card box-shadow-cards" style="width: 30rem;">
+                    <div class="card-body">
+                        <h5 class="card-title text-center" id="card-title-1"></h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary text-center mb-4" id="card-resume"></h6>
+                        <p class="card-text gupter-regular beautiful-text" id="resume"></p>
+                        <q class="gupter-regular" id="citation1"></q>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-5">
+                <div class="card box-shadow-cards" style="width: 30rem;">
+                    <div class="card-body">
+                        <h5 class="card-title text-center" id="introductionTitle"></h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary text-center" id="introductionResume"></h6>
+                        <p class="card-text gupter-regular beautiful-text" id="abstract"></p>
+                        <q class="gupter-regular" id="citation2"></q>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Modal -->
+    <div class="modal fade" id="contactUsModal" tabindex="-1" aria-labelledby="contactUsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-nav-umb">
+                    <h5 class="modal-title" id="contactUsModalLabel"></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="contactForm">
+                        <div class="mb-3">
+                            <label for="namesInput" id="nameLabel" class="form-label"></label>
+                            <input type="text" class="form-control" id="namesInput" name="namesInput" aria-describedby="nameHelp">
+                            <input type="hidden" name="csrfToken" value="<?= $csrfToken; ?>">
+                        </div>
+                        <div class="mb-3">
+                            <label for="lastNamesInput" class="form-label" id="lastNameLabel"></label>
+                            <input type="text" class="form-control" id="lastNamesInput" name="lastNamesInput" aria-describedby="lastNamesHelp">
+                            <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+                        </div>
+                        <div class="mb-3">
+                            <label for="exampleInputEmail1" class="form-label" id="emailLabel"></label>
+                            <input type="email" class="form-control" id="exampleInputEmail1" name="exampleInputEmail1" aria-describedby="emailHelp">
+                            <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
+                        </div>
+                        <div class="mb-3">
+                            <label for="phoneInput" class="form-label" id="phoneLabel"></label>
+                            <input type="tel" class="form-control" id="phoneInput" name="phoneInput">
+                        </div>
+                        <div class="mb-3">
+                            <label for="messageFormControlTextarea" class="form-label" id="messageTextArea"></label>
+                            <textarea class="form-control" id="messageFormControlTextarea" name="descriptionArea" rows="3"></textarea>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-outline-warning" id="closeModal" data-bs-dismiss="modal"></button>
+                            <button type="submit" class="btn btn-outline-primary" id="sendButton"></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal End -->
+
+    <footer class="mt-auto">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4 mb-3">
+                    <h5 class="gupter-medium text-center" id="aboutUs"></h5>
+                    <p class="gupter-regular text-center" id="description"></p>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h5 class="gupter-medium text-center" id="quickWays"></h5>
+                    <ul class="list-unstyled text-center">
+                        <li><a href="#" class="text-decoration-none text-dark gupter-regular" onclick="showModal()" id="contactUs"></a></li>
+                        <li><a href="#" class="text-decoration-none text-dark gupter-regular text-show" id="phoneContact"></a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4 mb-3">
+                    <h5 class="gupter-medium text-center" id="followUs"></h5>
+                    <ul class="list-inline social-icons text-center">
+                        <li class="list-inline-item"><a id="facebook" class="text-dark"><i class="bi bi-facebook"></i></a></li>
+                        <li class="list-inline-item"><a id="twitter" class="text-dark"><i class="bi bi-twitter"></i></a></li>
+                        <li class="list-inline-item"><a id="instagram" class="text-dark"><i class="bi bi-instagram"></i></a></li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="mb-4">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p class="gupter-regular">&copy; 2024 Wilmar David Macias Guerrero. Todos los derechos reservados.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+
+
+    <!-- Jquery Library -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+    <!-- General Javascript -->
+    <script src="./public/javascript/general.js"></script>
+
+    <!-- Bootstrap Library JS -->
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+</body>
+
+</html>
