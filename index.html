@@ -1,32 +1,3 @@
-<?php
-
-require_once("./settings/connection.php");
-
-$csrfToken = bin2hex(random_bytes(32));
-$message = '';
-
-if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
-    $names = $_POST['namesInput'];
-    $lastNames = $_POST['lastNamesInput'];
-    $email = $_POST['exampleInputEmail1'];
-    $phones = $_POST['phoneInput'];
-    $description = $_POST['descriptionArea'];
-
-    if (isset($names) && isset($lastNames) && isset($email) && isset($phones) && isset($description)) {
-        $store = new Connection();
-        $storeInfo = $store->store($names, $lastNames, $email, $phones, $description);
-
-        if ($storeInfo) {
-            $message = 1;
-        } else {
-            $message = 0;
-        }
-    }
-}
-
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -99,22 +70,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <div class="container">
         <h1 class="margin-6 gupter-regular text-center" id="titleMainPage"></h1>
 
-        <!-- <?php if (isset($message)) { ?>
-            <div class="container bg-nav-umb">
+            <div class="container bg-nav-umb d-none" id="message">
                 <div class="row">
                     <div class="col">
-                        <small><?= date('Y-m-d H:i:s'); ?></small>
+                        <small>Fecha</small>
                     </div>
                 </div>
                 <div class="text-center" style="margin-bottom: 5%;">
-                    <?php if ($message == 1) { ?>
-                        <span>Se envio de manera exitosa tu información de contacto, lo mas pronto se comunicaran contigo.</span>
-                    <?php } else { ?>
-                        <span>Hubo problemas no se envio tu información de contacto, intentalo más tarde.</span>
-                    <?php } ?>
+                    <span id="success"></span>
                 </div>
             </div>
-        <?php  } ?> -->
 
         <div class="row">
             <div class="col-xl-6 col-lg-12 col-md-12 col-sm-12 mb-5">
@@ -154,17 +119,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <div class="mb-3">
                             <label for="namesInput" id="nameLabel" class="form-label"></label>
                             <input type="text" class="form-control" id="namesInput" name="namesInput" aria-describedby="nameHelp">
-                            <input type="hidden" name="csrfToken" value="<?= $csrfToken; ?>">
                         </div>
                         <div class="mb-3">
                             <label for="lastNamesInput" class="form-label" id="lastNameLabel"></label>
                             <input type="text" class="form-control" id="lastNamesInput" name="lastNamesInput" aria-describedby="lastNamesHelp">
-                            <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
                         </div>
                         <div class="mb-3">
                             <label for="exampleInputEmail1" class="form-label" id="emailLabel"></label>
                             <input type="email" class="form-control" id="exampleInputEmail1" name="exampleInputEmail1" aria-describedby="emailHelp">
-                            <!-- <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div> -->
                         </div>
                         <div class="mb-3">
                             <label for="phoneInput" class="form-label" id="phoneLabel"></label>
@@ -176,7 +138,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-outline-warning" id="closeModal" data-bs-dismiss="modal"></button>
-                            <button type="submit" class="btn btn-outline-primary" id="sendButton"></button>
+                            <button type="button" class="btn btn-outline-primary" id="sendButton" onclick="storeInfoContact();"></button>
                         </div>
                     </form>
                 </div>
@@ -218,16 +180,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     </footer>
 
 
-
     <!-- Jquery Library -->
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-
     <!-- General Javascript -->
     <script src="./public/javascript/general.js"></script>
-
+    <script src="./database/database.js"></script>
     <!-- Bootstrap Library JS -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
 </body>
-
 </html>

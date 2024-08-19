@@ -39,38 +39,69 @@ $(document).ready(function() {
     $('#introductionTitle').append("Introducción a las estrategias de comunicación en Artistas");
     $('#citation1').append("Investigado en: Revista Internacional de Relaciones Públicas.");
     $('#citation2').append("Fuente: Revista Internacional de Relaciones Públicas.");
+    $('#citation3').append("Fuente: Revista Internacional de Relaciones Públicas.");
+    $('#citation4').append("Fuente: Revista Internacional de Relaciones Públicas.");
+    $('#citation5').append("Fuente: Revista Internacional de Relaciones Públicas.");
 
 
     // Charge HTML Elements Or Properties By Default
-    $('#navBarMainTitle').attr('href', './index.php');
-    $('#introduction').attr('href',    './views/resourceView.php?view=1');
-    $('#methodologuy').attr('href',           './views/resourceView.php?view=2');
-    $('#theme').attr('href',    './views/resourceView.php?view=3');
+    $('#navBarMainTitle').attr('href', './index.html');
+    $('#introduction').attr('href',    './views/resourceView.html?view=1');
+    $('#methodologuy').attr('href',    './views/resourceView.html?view=2');
+    $('#theme').attr('href',           './views/resourceView.html?view=3');
     
     // Desde vista diferente al index
-    $('#navBarMainTitle1').attr('href', '../index.php');
-    $('#introduction1').attr('href',    './resourceView.php?view=1');
-    $('#methodology1').attr('href',           './resourceView.php?view=2');
-    $('#theme1').attr('href',    './resourceView.php?view=3');
+    $('#navBarMainTitle1').attr('href', '../index.html');
+    $('#introduction1').attr('href',    './resourceView.html?view=1');
+    $('#methodology1').attr('href',     './resourceView.html?view=2');
+    $('#theme1').attr('href',           './resourceView.html?view=3');
 
     // Rutas desde fuera del index
-    $('#person1').attr('href', './artistContent.php?artist=1');
-    $('#person2').attr('href', './artistContent.php?artist=2');
-    $('#person3').attr('href', './artistContent.php?artist=3');
-    $('#person4').attr('href', './artistContent.php?artist=4');
-    $('#person5').attr('href', './artistContent.php?artist=5');
+    $('#person1').attr('href', './artistContent.html?artist=1');
+    $('#person2').attr('href', './artistContent.html?artist=2');
+    $('#person3').attr('href', './artistContent.html?artist=3');
+    $('#person4').attr('href', './artistContent.html?artist=4');
+    $('#person5').attr('href', './artistContent.html?artist=5');
 
     // Rutas desde el index
-    $('#personIndex1').attr('href', '/views/artistContent.php?artist=1');
-    $('#personIndex2').attr('href', '/views/artistContent.php?artist=2');
-    $('#personIndex3').attr('href', '/views/artistContent.php?artist=3');
-    $('#personIndex4').attr('href', '/views/artistContent.php?artist=4');
-    $('#personIndex5').attr('href', '/views/artistContent.php?artist=5');
+    $('#personIndex1').attr('href', '/views/artistContent.html?artist=1');
+    $('#personIndex2').attr('href', '/views/artistContent.html?artist=2');
+    $('#personIndex3').attr('href', '/views/artistContent.html?artist=3');
+    $('#personIndex4').attr('href', '/views/artistContent.html?artist=4');
+    $('#personIndex5').attr('href', '/views/artistContent.html?artist=5');
+
+
+    // Recibo parametros por url desde index
+    let params = new URLSearchParams(location.search);
+    let viewParam = params.get('view');
+    viewParam == 1 ? $('#resourceTitle').append('Marco Teorico') : viewParam == 2 ? 
+                     $('#resourceTitle').append('Metodologia') : $('#resourceTitle').append('Resultados');
     
+    viewParam == 1 ? $('#resourceContentTitle').append('Marco Teorico') : viewParam == 2 ? 
+                     $('#resourceContentTitle').append('Metodologia') : $('#resourceContentTitle').append('Resultados');
+    
+    viewParam == 1 ? $('#paragraphContentTeoric').removeClass('d-none') : viewParam == 2 ? 
+                     $('#paragraphContentMethologic').removeClass('d-none') : $('#paragraphContentResults').removeClass('d-none'); 
+
+    
+    let params1 = new URLSearchParams(location.search);
+    let artistParams = params1.get('artist');
+    artistParams == 1 ? $('#artistTitle').append('Justin Biever') : artistParams == 2 ? 
+                        $('#artistTitle').append('Bad Bunny') : artistParams == 3 ? $('#artistTitle').append('Rosalia') :
+                        artistParams == 4 ? $('#artistTitle').append('Billie Elish') : $('#artistTitle').append('Tangana');
+
+    artistParams == 1 ? $('#paragraphArtist1').removeClass('d-none') : artistParams == 2 ? 
+                     $('#paragrapArtist2').removeClass('d-none') : artistParams == 3 ? 
+                     $('#paragrapArtist3').removeClass('d-none') : artistParams == 4 ? $('#paragrapArtist4').removeClass('d-none') :
+                     $('#paragrapArtist5').removeClass('d-none');
+    
+    artistParams == 1 ? $('#titleArtist').append('Justin Biever') : artistParams == 2 ? $('#titleArtist').append('Bad Bunny') :
+    artistParams == 3 ? $('#titleArtist').append('Rosalia') : artistParams == 4 ? $('#titleArtist').append('Billie Elish') :
+    $('#titleArtist').append('Tangana');   
 
     // Social Networks
-    $('#facebook').attr('href', 'https://www.facebook.com/UMBVirtual');
-    $('#twitter').attr('href', 'https://twitter.com/UMBVirtual');
+    $('#facebook').attr('href',  'https://www.facebook.com/UMBVirtual');
+    $('#twitter').attr('href',   'https://twitter.com/UMBVirtual');
     $('#instagram').attr('href', 'https://www.instagram.com/umb.virtual/');
 
     // Modal
@@ -84,8 +115,6 @@ $(document).ready(function() {
     $('#emailLabel').append('Correo');
     $('#phoneLabel').append('Telefono');
     $('#messageTextArea').append('Mensaje');
-    $('#contactForm').attr('action', './index.php');
-    $('#contactForm').attr('method', 'POST');
 });
 
 
